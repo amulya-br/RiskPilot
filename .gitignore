@@ -1,6 +1,21 @@
+# Python
 __pycache__/
 *.pyc
+
+# Virtual environment
 venv/
+
+# VS Code
 .vscode/
+
+# Dataset
+data/
+
+# Logs
+logs/
+
+# YOLO weights
+*.pt
+
+# Optional
 runs/
-yolov8n.pt
