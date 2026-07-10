@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>RiskPilot AI</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- ===========================
+            LOGO
+    ============================ -->
+
+    <img
+        src="{{ url_for('static', filename='logo.png') }}"
+        class="logo"
+        alt="RiskPilot Logo">
+
+    <h1>🛡 RiskPilot AI</h1>
+
+    <h3>
+        AI-Based Predictive Public Safety Intelligence Platform
+    </h3>
+
+    <p class="subtitle">
+
+        Real-Time Crowd Monitoring |
+        Predictive Risk Assessment |
+        Live Analytics
+
+    </p>
+
+    <!-- ===========================
+            VIDEO MODE
+    ============================ -->
+
+    <div class="mode-container">
+
+        <button
+            class="mode-btn"
+            onclick="changeMode('camera')">
+
+            🎥 Live Camera
+
+        </button>
+
+        <button
+            class="mode-btn"
+            onclick="changeMode('dataset')">
+
+            📹 Dataset Video
+
+        </button>
+
+    </div>
+
+    <!-- ===========================
+            KPI CARDS
+    ============================ -->
+
+    <div class="kpi-container">
+
+        <div class="kpi-card">
+
+            <h3>👥 People</h3>
+
+            <h2 id="kpiPeople">
+
+                0
+
+            </h2>
+
+        </div>
+
+        <div class="kpi-card">
+
+            <h3>🚨 Risk</h3>
+
+            <h2 id="kpiRisk">
+
+                SAFE
+
+            </h2>
+
+        </div>
+
+        <div class="kpi-card">
+
+            <h3>📹 Camera</h3>
+
+            <h2 style="color:#00ff66;">
+
+                ONLINE
+
+            </h2>
+
+        </div>
+
+        <div class="kpi-card">
+
+            <h3>🛡 Safety Score</h3>
+
+            <h2 id="safetyScore">
+
+                100%
+
+            </h2>
+
+        </div>
+
+    </div>
+
+    <!-- ===========================
+            LIVE CAMERA
+    ============================ -->
+
+    <div class="video-box">
+
+        <h2>
+
+            🎥 Live Camera Feed
+
+        </h2>
+
+        <img
+            id="video"
+            src="{{ url_for('video_feed') }}"
+            alt="Live Camera">
+
+    </div>
+    <!-- ===========================
+        LIVE DASHBOARD
+=========================== -->
+
+<div class="card">
+
+    <h2>📊 Live Dashboard</h2>
+
+    <p>
+
+        👥 <b>People Count :</b>
+
+        <span id="people">
+
+            0
+
+        </span>
+
+    </p>
+
+    <p>
+
+        📈 <b>Crowd Density :</b>
+
+        <span id="density">
+
+            Low
+
+        </span>
+
+    </p>
+
+    <p>
+
+        🚶 <b>Moving People :</b>
+
+        <span id="moving">
+
+            0
+
+        </span>
+
+    </p>
+
+    <p>
+
+        🧍 <b>Stationary People :</b>
+
+        <span id="stationary">
+
+            0
+
+        </span>
+
+    </p>
+
+    <p>
+
+        ⚡ <b>Average Speed :</b>
+
+        <span id="speed">
+
+            0
+
+        </span>
+
+    </p>
+
+    <p>
+
+        🚨 <b>Risk Level :</b>
+
+        <span id="risk">
+
+            SAFE
+
+        </span>
+
+    </p>
+
+</div>
+
+<!-- ===========================
+        LIVE ALERT
+=========================== -->
+
+<div class="card">
+
+    <h2>🚨 Live Alert</h2>
+
+    <p
+        id="alert"
+        style="
+            text-align:center;
+            font-size:30px;
+            font-weight:bold;
+            color:#00ff66;
+        ">
+
+        🟢 Normal Activity
+
+    </p>
+
+</div>
+
+<!-- ===========================
+      AI RECOMMENDATION
+=========================== -->
+
+<div class="card">
+
+    <h2> AI Recommendation</h2>
+
+    <p
+        id="recommendation"
+        style="
+            text-align:center;
+            font-size:24px;
+            font-weight:bold;
+            color:#00ffff;
+            line-height:40px;
+        ">
+
+        ✅ Normal activity detected.<br>
+
+        Continue monitoring.
+
+    </p>
+
+</div>
+
+<!-- ===========================
+        SYSTEM STATUS
+=========================== -->
+
+<div class="card">
+
+    <h2> System Status</h2>
+
+    <p>
+
+         Camera :
+
+        <span style="color:#00ff66;">
+
+            ONLINE
+
+        </span>
+
+    </p>
+
+    <p>
+
+         YOLO Model :
+
+        <span style="color:#00ff66;">
+
+            Loaded
+
+        </span>
+
+    </p>
+
+    <p>
+
+        Prediction Engine :
+
+        <span style="color:#00ff66;">
+
+            Running
+
+        </span>
+
+    </p>
+
+    <p>
+
+        Last Updated :
+
+        <span id="lastUpdated">
+
+            --:--:--
+
+        </span>
+
+    </p>
+
+</div>
+<!-- ===========================
+        LIVE EVENT LOG
+=========================== -->
+
+<div class="card">
+
+    <h2> Live Event Log</h2>
+
+    <div
+        id="eventLog"
+        class="event-log">
+
+        <p>
+
+            No Events Yet
+
+        </p>
+
+    </div>
+
+</div>
+
+<!-- ===========================
+        RISK TREND GRAPH
+=========================== -->
+
+<div class="card">
+
+    <h2>📈 Risk Trend Graph</h2>
+
+    <img
+        id="riskGraph"
+        src="{{ url_for('static', filename='risk_graph.png') }}"
+        alt="Risk Trend Graph"
+        style="
+            width:100%;
+            border-radius:15px;
+            border:3px solid #00F5FF;
+        ">
+
+</div>
+
+<!-- ===========================
+            FOOTER
+=========================== -->
+
+<footer class="footer">
+
+    <hr
+        style="
+            border:1px solid #00F5FF;
+            margin:40px 0 20px 0;
+        ">
+
+    <h3 style="color:#00F5FF;">
+
+        🛡 RiskPilot AI
+
+    </h3>
+
+    <p>
+
+        AI-Based Predictive Public Safety Intelligence Platform
+
+    </p>
+
+    <p>
+
+        Developed by <b>Amulya B R</b>
+
+    </p>
+
+    <p>
+
+        Version 2.0 | © 2026
+
+    </p>
+
+</footer>
+
+</div>
+
+<!-- ======================================
+        JAVASCRIPT STARTS HERE
+====================================== -->
+
+<script>
+    // ======================================
+// Change Video Mode
+// ======================================
+
+async function changeMode(mode){
+
+    try{
+
+        await fetch("/set_mode/" + mode);
+
+        document.getElementById("video").src =
+            "/video_feed?" + new Date().getTime();
+
+    }
+
+    catch(error){
+
+        console.log(error);
+
+    }
+
+}
+
+// ======================================
+// Helper Functions
+// ======================================
+
+function setValue(id,value){
+
+    const element = document.getElementById(id);
+
+    if(element){
+
+        element.textContent = value;
+
+    }
+
+}
+
+function setHTML(id,value){
+
+    const element = document.getElementById(id);
+
+    if(element){
+
+        element.innerHTML = value;
+
+    }
+
+}
+
+// ======================================
+// Dashboard API
+// ======================================
+
+async function loadDashboard(){
+
+    try{
+
+        const response = await fetch("/api/dashboard");
+
+        const data = await response.json();
+
+        setValue("people",data.people);
+        setValue("density",data.density);
+        setValue("moving",data.moving);
+        setValue("stationary",data.stationary);
+        setValue("speed",data.speed);
+        setValue("risk",data.risk);
+        setValue("alert",data.alert);
+
+        setValue("kpiPeople",data.people);
+        setValue("kpiRisk",data.risk);
+
+        let score = 100;
+
+        if(data.risk=="MODERATE"){
+
+            score=80;
+
+        }
+
+        else if(data.risk=="HIGH"){
+
+            score=60;
+
+        }
+
+        else if(data.risk=="CRITICAL"){
+
+            score=30;
+
+        }
+
+        setValue("safetyScore",score+"%");
+
+        setValue(
+            "lastUpdated",
+            new Date().toLocaleTimeString()
+        );
+
+        let recommendation =
+        "✅ Normal activity detected.<br>Continue monitoring.";
+
+        if(data.risk=="MODERATE"){
+
+            recommendation =
+            "⚠ Crowd density increasing.<br>Monitor carefully.";
+
+        }
+
+        else if(data.risk=="HIGH"){
+
+            recommendation =
+            "🚨 High crowd risk.<br>Deploy security personnel.";
+
+        }
+
+        else if(data.risk=="CRITICAL"){
+
+            recommendation =
+            "🛑 Critical situation.<br>Immediate emergency response required.";
+
+        }
+
+        setHTML(
+            "recommendation",
+            recommendation
+        );
+
+        const colors = {
+
+            SAFE:"#00ff66",
+            MODERATE:"#FFD700",
+            HIGH:"#ff9800",
+            CRITICAL:"#ff3333"
+
+        };
+
+        const color = colors[data.risk] || "#00ff66";
+
+        document.getElementById("risk").style.color=color;
+        document.getElementById("alert").style.color=color;
+        document.getElementById("kpiRisk").style.color=color;
+
+    }
+
+    catch(error){
+
+        console.log(error);
+
+    }
+
+}
+// ======================================
+// Event Log API
+// ======================================
+
+async function loadEvents(){
+
+    try{
+
+        const response = await fetch("/api/events");
+
+        const events = await response.json();
+
+        const log = document.getElementById("eventLog");
+
+        log.innerHTML = "";
+
+        if(events.length === 0){
+
+            log.innerHTML = "<p>No Events Yet</p>";
+
+            return;
+
+        }
+
+        events.forEach(event => {
+
+            log.innerHTML += `
+
+            <div style="
+                background:#1f1f1f;
+                border-left:5px solid #00F5FF;
+                padding:15px;
+                margin-bottom:12px;
+                border-radius:10px;
+                color:white;
+            ">
+
+                🕒 <b>${event.time}</b><br>
+
+                👥 People : ${event.people}<br>
+
+                🚨 Risk : <b>${event.risk}</b>
+
+            </div>
+
+            `;
+
+        });
+
+    }
+
+    catch(error){
+
+        console.log(error);
+
+    }
+
+}
+
+// ======================================
+// Refresh Risk Graph
+// ======================================
+
+function refreshGraph(){
+
+    document.getElementById("riskGraph").src =
+        "/static/risk_graph.png?t=" +
+        new Date().getTime();
+
+}
+
+// ======================================
+// Refresh Everything
+// ======================================
+
+async function refreshDashboard(){
+
+    await loadDashboard();
+
+    await loadEvents();
+
+    refreshGraph();
+
+}
+
+// First Load
+
+refreshDashboard();
+
+// Auto Refresh Every Second
+
+setInterval(refreshDashboard,1000);
+
+</script>
+
+</body>
+
+</html>
