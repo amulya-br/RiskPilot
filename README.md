@@ -115,43 +115,43 @@ RiskPilot/
 
 ### Home Page
 
-![Home](assets/home.png)
+![Home](assets/01_home.png)
 
 ---
 
 ### Live Camera Mode
 
-![Live Camera](assets/live_camera.png)
+![Live Camera](assets/02_live_camera.png)
 
 ---
 
 ### Dashboard
 
-![Dashboard](assets/dashboard.png)
+![Dashboard](assets/03_dashboard.png)
 
 ---
 
 ### Critical Risk Alert
 
-![Critical Alert](assets/critical_alert.png)
+![Critical Alert](assets/04_critical_alert.png)
 
 ---
 
 ### Event Log
 
-![Event Log](assets/event_log.png)
-
----
-
-### Risk Trend Graph
-
-![Risk Graph](assets/risk_graph.png)
+![Event Log](assets/05_event_log.png)
 
 ---
 
 ### System Status
 
-![System Status](assets/system_status.png)
+![System Status](assets/06_system_status.png)
+
+---
+
+### Risk Trend Graph
+
+![Risk Graph](assets/07_risk_graph.png)
 
 ---
 
