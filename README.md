@@ -115,7 +115,7 @@ RiskPilot/
 
 ### Home Page
 
-![Home](assets/01_home.png)
+![Home](assets/01_homepage.png)
 
 ---
 
